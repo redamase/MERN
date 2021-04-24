@@ -10,10 +10,10 @@ notesController.getNotes = async (req, res) => {
 notesController.createNotes = async (req, res) => {
   const { title, content, date, author } = req.body;
   const newNote = new Note({
-    title: title,
-    content: content,
-    date: date,
-    author: author,
+    title,
+    content,
+    date,
+    author,
   });
   await newNote.save();
   res.json({ message: "create notes" });
@@ -23,7 +23,23 @@ notesController.getNote = async (req, res) => {
   const note = await Note.findById(req.params.id);
   res.json(note);
 };
-notesController.updateNote = (req, res) => res.json({ message: "UPDATE" });
-notesController.deleteNote = (req, res) => res.json({ message: "DELETE" });
 
+notesController.updateNote = async (req, res) => {
+  //console.log(req.params.id, req.body);
+  const { title, content, author } = req.body;
+  await Note.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      title,
+      content,
+      author,
+    }
+  );
+  res.json({ message: "UPDATE" });
+};
+
+notesController.deleteNote = async (req, res) => {
+  await Note.findByIdAndDelete(req.params.id);
+  res.json({ message: "DELETE" });
+};
 module.exports = notesController;
