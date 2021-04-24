@@ -1,8 +1,9 @@
 /** @format */
 
-import logo from "./logo.svg";
+//import logo from "./logo.svg";
 import React from "react";
 import { BrowserRouter as BR, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import CreateNote from "./components/CreateNote";
@@ -12,10 +13,12 @@ function App() {
   return (
     <BR>
       <Navigation />
-      <Route path='/' component={NotesList} exact />
-      <Route path='/edit:id' component={CreateNote} />
-      <Route path='/create' component={CreateNote} />
-      <Route path='/user' component={CreateUser} />
+      <div className='container p-4'>
+        <Route path='/' component={NotesList} exact />
+        <Route path='/edit:id' component={CreateNote} />
+        <Route path='/create-notes' component={CreateNote} />
+        <Route path='/create-user' component={CreateUser} />
+      </div>
     </BR>
   );
 }
