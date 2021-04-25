@@ -15,7 +15,7 @@ function App() {
       <Navigation />
       <div className='container p-4'>
         <Route path='/' component={NotesList} exact />
-        <Route path='/edit:id' component={CreateNote} />
+        <Route path='/edit/:id' component={CreateNote} />
         <Route path='/create-notes' component={CreateNote} />
         <Route path='/create-user' component={CreateUser} />
       </div>

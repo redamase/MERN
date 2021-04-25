@@ -42,7 +42,7 @@ export default class CreateUser extends Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:4000/api/users", {
+    await axios.post("http://localhost:4000/api/users", {
       username: this.state.username,
     });
     this.getUsers();
@@ -50,7 +50,7 @@ export default class CreateUser extends Component {
   };
 
   deleteUser = async (id) => {
-    const res = await axios.delete("http://localhost:4000/api/users/" + id);
+    await axios.delete("http://localhost:4000/api/users/" + id);
     this.getUsers();
   };
 
