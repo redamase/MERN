@@ -26,13 +26,14 @@ notesController.getNote = async (req, res) => {
 
 notesController.updateNote = async (req, res) => {
   //console.log(req.params.id, req.body);
-  const { title, content, author } = req.body;
+  const { title, content, author, date } = req.body;
   await Note.findOneAndUpdate(
     { _id: req.params.id },
     {
       title,
       content,
       author,
+      date,
     }
   );
   res.json({ message: "UPDATE" });
