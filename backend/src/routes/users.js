@@ -1,17 +1,32 @@
 /** @format */
 
-const { Router } = require("express");
+import { Router } from "express";
+
 const router = Router();
+import { authJWT, verifySingup } from "../middlewares";
 
-const {
-  getUsers,
-  createUser,
-  updateUser,
-  getUser,
-  deleteUser,
-} = require("../controllers/users.controller");
+// const {
+//   getUsers,
+//   createUser,
+//   updateUser,
+//   getUser,
+//   deleteUser,
+// } = require("../controllers/users.controller");
 
-router.route("/").get(getUsers).post(createUser);
+import * as userController from "../controllers/users.controller";
+router
+  .route("/")
+  .get(userController.getUsers)
+  .post(
+    [
+      authJWT.verifyToken,
+      authJWT.isAdMode,
+      verifySingup.checkRolesExisted,
+      verifySingup.checkDuplicateUsernameOrEmail,
+    ],
+    userController.createUser
+  );
 
-router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
-module.exports = router;
+// router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
+
+export default router;
