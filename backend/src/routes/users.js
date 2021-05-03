@@ -27,6 +27,8 @@ router
     userController.createUser
   );
 
+router.route("/me").get([authJWT.verifyToken], userController.getProfile);
+
 // router.route("/:id").get(getUser).put(updateUser).delete(deleteUser);
 
 export default router;
